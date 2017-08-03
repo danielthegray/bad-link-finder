@@ -4,8 +4,8 @@ A small spider that crawls starting at a "root" URL and looks for broken links.
 Optionally, crawling depth can be limited, as well as crawling only within the domain.
 
 ## Modules to install (dependencies)
-`WWW::Mechanize` used for downloading the content & parsing the links.
-`LWP::Protocol::https` needs to be installed if you want it to check `https://` links.
+* `WWW::Mechanize` used for downloading the content & parsing the links.
+* `LWP::Protocol::https` needs to be installed if you want it to check `https://` links.
 
 ## Usage
 `./crawler.pl --domain somewebsite.com --crawl-depth 5 --verbose URL`
