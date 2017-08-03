@@ -10,7 +10,14 @@ sub domain_from_url {
 }
 
 if (@ARGV == 0) {
-	print "Usage: $0";
+	print "Usage: $0 --domain somewebsite.com --crawl-depth 5 --verbose URL\n";
+	print "\n";
+	print "Options:\n";
+	print "* --domain: Restrict crawling to the specified domain only.\n";
+	print "* --crawl-depth: Restricting crawling only up to the specified link depth\n";
+	print "* --verbose: Print links as they are checked (marked with [OK]).\n";
+	print "(short options can also be used like -d, -c or -v, thanks to Getopt::Long)\n\n";
+	exit;
 }
 my $crawl_depth = -1;
 my $crawl_domain = "";
