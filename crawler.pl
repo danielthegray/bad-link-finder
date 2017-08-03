@@ -36,7 +36,7 @@ if ($verbose > 1) {
 	print "crawl-domain=$crawl_domain\n";
 	print "start_url=$start_url\n";
 }
-my $mech = WWW::Mechanize->new(autocheck=>0);
+my $crawler = WWW::Mechanize->new(autocheck=>0);
 
 my %checked_links = ();
 my @url_stack = ();
@@ -54,9 +54,10 @@ while (@url_stack > 0) {
 		next;
 	}
 	$checked_links{$current_url}++;
-	my $res = $mech->get($current_url);
-	if ($res->code % 100 == 4) {
-		print "$current_url is broken!\n";
+	my $res = $crawler->get($current_url);
+	my $html_code_group = int($res->code / 100);
+	if ($html_code_group != 2 && $html_code_group != 3) {
+		print "$current_url [BROKEN! - ".$res->code."]\n";
 		next;
 	} elsif ($verbose > 0) {
 		print "$current_url [OK]\n";
@@ -64,7 +65,7 @@ while (@url_stack > 0) {
 	if ($crawl_domain && !($current_url =~ m/$crawl_domain/)) {
 		next;
 	}
-	my @links = $mech->links();
+	my @links = $crawler->links();
 	my $new_depth = $depth+1;
 	foreach my $sublink (@links) {
 		my $sublink_url = $sublink->url_abs();
