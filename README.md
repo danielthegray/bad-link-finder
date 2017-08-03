@@ -9,6 +9,7 @@ Optionally, crawling depth can be limited, as well as crawling only within the d
 
 ## Usage
 `./crawler.pl --domain somewebsite.com --crawl-depth 5 --verbose URL`
+
 Options:
 * `--domain`: Restrict crawling to the specified domain only.
 * `--crawl-depth`: Restricting crawling only up to the specified link depth
