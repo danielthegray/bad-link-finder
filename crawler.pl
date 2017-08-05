@@ -16,8 +16,12 @@ if (@ARGV == 0) {
 	print "* --domain: Restrict crawling to the specified domain only.\n";
 	print "* --crawl-depth: Restricting crawling only up to the specified link depth\n";
 	print "* --verbose: Print links as they are checked (marked with [OK]).\n";
+	print "You MUST specify a root URL parameter. All other options are not.\n";
+	print "Crawling can be limited by restricting it only to the specified domain\n";
+	print "which will check links to other domains but not follow any links there.\n";
+	print "It can also be limited by crawl depth, with is the number of 'hops' from\nthe root URL\n";
 	print "(short options can also be used like -d, -c or -v, thanks to Getopt::Long)\n\n";
-	exit;
+	exit 1;
 }
 my $crawl_depth = -1;
 my $crawl_domain = "";
@@ -27,6 +31,10 @@ GetOptions("crawl-depth=i" => \$crawl_depth
 	,"verbose" => \$verbose
 ) or die("Bad command line arguments");
 my $start_url = shift @ARGV;
+if (not $start_url) {
+	print "No crawl root URL defined!";
+	exit 2;
+}
 
 if (!($start_url =~ m/https?\:\/\//)) {
 	$start_url = "http://$start_url";
