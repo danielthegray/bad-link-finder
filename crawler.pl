@@ -77,7 +77,7 @@ while (@url_stack > 0) {
 	my $new_depth = $depth+1;
 	foreach my $sublink (@links) {
 		my $sublink_url = $sublink->url_abs();
-		next if ($sublink_url =~ m/^mailto:/);
+		next if ($sublink_url =~ m/^mailto:/ or $sublink_url =~ m/^news:/);
 		push @url_stack, {$sublink_url, $new_depth};
 	}
 }
