@@ -6,7 +6,7 @@ use WWW::Mechanize;
 
 sub domain_from_url {
 	my $url = shift;
-	return $url =~ s/(https?\:\/\/)?([a-zA-Z0-9.]+)\/.*/$2/;
+	return $url =~ s/(https?\:\/\/)?([a-zA-Z0-9.-]+)\/.*/$2/;
 }
 
 if (@ARGV == 0) {
@@ -70,7 +70,7 @@ while (@url_stack > 0) {
 	} elsif ($verbose > 0) {
 		print "$current_url [OK]\n";
 	}
-	if ($crawl_domain && !($current_url =~ m/$crawl_domain/)) {
+	if ($crawl_domain && !(domain_from_url($current_url) =~ m/$crawl_domain/)) {
 		next;
 	}
 	my @links = $crawler->links();
